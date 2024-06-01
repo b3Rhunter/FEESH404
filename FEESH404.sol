@@ -3,30 +3,72 @@ pragma solidity ^0.8.4;
 
 import "./DN404.sol";
 import "./DN404Mirror.sol";
+import "./Base64.sol";
 import {Ownable} from "./Ownable.sol";
 import {LibString} from "./LibString.sol";
-import {DynamicBufferLib} from "./DynamicBufferLib.sol";
 import {SafeTransferLib} from "./SafeTransferLib.sol";
-import "@openzeppelin/contracts/utils/Base64.sol";
 
-contract FEESH404 is DN404, Ownable {
+contract NFTMintDN404 is DN404, Ownable {
     string private _name;
     string private _symbol;
-    string private _baseURI;
+    uint96 public publicPrice; 
+    uint32 public totalMinted;
+
+    error InvalidMint();
+    error InvalidPrice();
+    error TotalSupplyReached();
 
     constructor(
         string memory name_,
         string memory symbol_,
+        uint96 publicPrice_,
         uint96 initialTokenSupply,
         address initialSupplyOwner
     ) {
         _initializeOwner(msg.sender);
-
         _name = name_;
         _symbol = symbol_;
-
+        publicPrice = publicPrice_;
         address mirror = address(new DN404Mirror(msg.sender));
         _initializeDN404(initialTokenSupply, initialSupplyOwner, mirror);
+    }
+
+    modifier checkPrice(uint256 price, uint256 nftAmount) {
+        if (price * nftAmount != msg.value) {
+            revert InvalidPrice();
+        }
+        _;
+    }
+
+    modifier checkAndUpdateTotalMinted(uint256 nftAmount) {
+        uint256 newTotalMinted = uint256(totalMinted) + nftAmount;
+        totalMinted = uint32(newTotalMinted);
+        _;
+    }
+
+    modifier checkAndUpdateBuyerMintCount(uint256 nftAmount) {
+        uint256 currentMintCount = _getAux(msg.sender);
+        uint256 newMintCount = currentMintCount + nftAmount;
+        _setAux(msg.sender, uint88(newMintCount));
+        _;
+    }
+
+    function mint(uint256 nftAmount)
+        public
+        payable
+        checkPrice(publicPrice, nftAmount)
+        checkAndUpdateBuyerMintCount(nftAmount)
+        checkAndUpdateTotalMinted(nftAmount)
+    {
+        _mint(msg.sender, nftAmount * _unit());
+    }
+
+    function setPrices(uint96 publicPrice_) public onlyOwner {
+        publicPrice = publicPrice_;
+    }
+
+    function withdraw() public onlyOwner {
+        SafeTransferLib.safeTransferAllETH(msg.sender);
     }
 
     function name() public view override returns (string memory) {
@@ -37,14 +79,10 @@ contract FEESH404 is DN404, Ownable {
         return _symbol;
     }
 
-    function mint(address to, uint256 amount) public onlyOwner {
-        _mint(to, amount);
-    }
-
     function _tokenURI(uint256 tokenId) internal pure override returns (string memory result) {
         string memory color1 = _randomColor(tokenId);
-        string memory color2 = _randomColor(tokenId + 1);
-        string memory color3 = _randomColor(tokenId + 2);
+        string memory color2 = _randomColor(tokenId + 7);
+        string memory color3 = _randomColor(tokenId + 9);
 
         string memory svg = string(
             abi.encodePacked(
@@ -110,10 +148,6 @@ contract FEESH404 is DN404, Ownable {
         bytes32 randomHash = keccak256(abi.encodePacked(seed));
         uint256 randomInt = uint256(randomHash) % 361;
         return randomInt;
-    }
-
-    function withdraw() public onlyOwner {
-        SafeTransferLib.safeTransferAllETH(msg.sender);
     }
 
     function retrieveURI(uint256 tokenId) public pure returns (string memory) {

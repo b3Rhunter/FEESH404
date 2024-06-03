@@ -60,3 +60,7 @@ button:active {
   border-color: coral;
   color: coral;
 }
+
+a {
+  z-index: 99;
+}

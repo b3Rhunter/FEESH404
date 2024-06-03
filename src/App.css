@@ -93,6 +93,26 @@ nav {
   width: 70px;
 }
 
+h1 {
+  position: fixed;
+  top: 30px;
+  margin: auto;
+  width: 100%;
+
+  color: #076ec8;
+  text-shadow:
+    1px 1px 0 coral,
+    -1px 1px 0 coral,
+    -1px -1px 0 coral,
+    1px -1px 0 coral;
+  font-family: monospace;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  text-align: center;
+  z-index: 99;
+}
+
 nav p {
   font-size: 2em;
   font-family: monospace;
@@ -121,4 +141,19 @@ nav p {
   box-shadow: 0 0 30px 0 #00000069;
   border-radius: 20px;
   backdrop-filter: blur(10px);
+}
+
+@media screen and (max-width: 768px) {
+
+  nav p {
+    font-size: 1.1em;
+  }
+
+  h1 {
+    display: none;
+  }
+
+  nav {
+    padding-inline: 1em;
+  }
 }

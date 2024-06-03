@@ -112,6 +112,7 @@ function App() {
         <video src={Water} autoPlay loop muted />
       </div>
       <div className='background-overlay'></div>
+      <h1>FEESH-404</h1>
       {!connected && <button className='connect-btn' onClick={connect}>Connect</button>}
       {connected && (
         <>
@@ -120,7 +121,6 @@ function App() {
           <img className='feesh' src={Feesh} alt='Feesh' />
           <p className='balance'>{parseFloat(balance)} Feesh</p>
           </div>
-
           <button className='disconnect-btn' onClick={disconnect}>{name}</button>
           </nav>
           <div className='nft-grid'>

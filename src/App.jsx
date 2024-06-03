@@ -13,6 +13,7 @@ function App() {
   const [nfts, setNfts] = useState([])
   const [loading, setLoading] = useState(false);
   const [notification, setNotification] = useState({ message: '', show: false });
+  const [visibleNfts, setVisibleNfts] = useState(5);
 
   const contractAddress = '0xC5641589A0124586a8daFA3670F7C2A4b8B0cb82'
 
@@ -117,6 +118,10 @@ function App() {
     setNfts([])
   }
 
+  const showMoreNfts = () => {
+    setVisibleNfts(visibleNfts + 5);
+  }
+
   return (
     <div className='app'>
       <div className='background'>
@@ -124,11 +129,11 @@ function App() {
       </div>
       <div className='background-overlay'></div>
       <nav>
-            <div className='logo'>
-              <img className='feesh' src={Feesh} alt='Feesh' />
-              <p className='balance'>{parseFloat(balance)} Feesh</p>
-            </div>
-            {connected && <button className='disconnect-btn' onClick={disconnect}>{name}</button>}
+        <div className='logo'>
+          <img className='feesh' src={Feesh} alt='Feesh' />
+          <p className='balance'>{parseFloat(balance)} Feesh</p>
+        </div>
+        {connected && <button className='disconnect-btn' onClick={disconnect}>{name}</button>}
       </nav>
       <h1>FEESH-404</h1>
       {loading && (
@@ -145,7 +150,7 @@ function App() {
         <>
           <div className='nft-grid'>
             {nfts.length > 0 ? (
-              nfts.map((nft, index) => (
+              nfts.slice(0, visibleNfts).map((nft, index) => (
                 <div key={index} className='nft-item'>
                   {nft.animation_url ? (
                     <iframe src={nft.animation_url} title={`Token ID ${nft.token_id}`} frameBorder="0" />
@@ -160,6 +165,9 @@ function App() {
               </div>
             )}
           </div>
+          {nfts.length > visibleNfts && (
+            <button className='show-more-btn' onClick={showMoreNfts}>Show More</button>
+          )}
           <a className='swap-btn' href='https://app.uniswap.org/explore/tokens/base/0xc5641589a0124586a8dafa3670f7c2a4b8b0cb82' target='_blank' rel="noreferrer"><button>Swap</button></a>
           <a className='opensea-btn' href='https://opensea.io/collection/feesh404-4' target='_blank' rel="noreferrer"><button>Opensea</button></a>
         </>

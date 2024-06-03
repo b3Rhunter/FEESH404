@@ -186,6 +186,7 @@ nav p {
   padding: 2em;
   background-color: #076ec893;
   backdrop-filter: blur(10px);
+  font-size: 1.5em;
 }
 
 .no-nfts a {

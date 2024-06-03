@@ -2,6 +2,7 @@ import './App.css'
 import { useState } from 'react'
 import DN404ABI from './DN404ABI.json'
 import { ethers } from 'ethers'
+import Notification from './Notification';
 import Water from './water.mp4'
 import Feesh from './assets/feesh.svg'
 
@@ -10,10 +11,13 @@ function App() {
   const [name, setName] = useState('')
   const [balance, setBalance] = useState(0)
   const [nfts, setNfts] = useState([])
+  const [loading, setLoading] = useState(false);
+  const [notification, setNotification] = useState({ message: '', show: false });
 
   const contractAddress = '0xC5641589A0124586a8daFA3670F7C2A4b8B0cb82'
 
   const connect = async () => {
+    setLoading(true)
     try {
       let provider;
       provider = new ethers.BrowserProvider(window.ethereum)
@@ -53,17 +57,20 @@ function App() {
       const tokenBalance = await contract.balanceOf(address)
       const ensProvider = new ethers.InfuraProvider('mainnet');
       const ens = await ensProvider.lookupAddress(address);
-        if (ens) {
-          setName(ens)
-        } else {
-          setName(address.substr(0, 6) + "...")
-        }
-        await fetchNfts()
-        setConnected(true)
-        setBalance(ethers.formatEther(tokenBalance))
+      if (ens) {
+        setName(ens)
+      } else {
+        setName(address.substr(0, 6) + "...")
+      }
+      await fetchNfts()
+      setConnected(true)
+      setBalance(ethers.formatEther(tokenBalance))
+      showNotification('Connected!');
     } catch (error) {
+      showNotification(error.message);
       console.error(error)
     }
+    setLoading(false);
   }
 
   const fetchNfts = async () => {
@@ -99,6 +106,10 @@ function App() {
     }
   }
 
+  const showNotification = (message) => {
+    setNotification({ message, show: true });
+  };
+
   const disconnect = () => {
     setConnected(false)
     setName('')
@@ -112,27 +123,42 @@ function App() {
         <video src={Water} autoPlay loop muted />
       </div>
       <div className='background-overlay'></div>
+      <nav>
+            <div className='logo'>
+              <img className='feesh' src={Feesh} alt='Feesh' />
+              <p className='balance'>{parseFloat(balance)} Feesh</p>
+            </div>
+            {connected && <button className='disconnect-btn' onClick={disconnect}>{name}</button>}
+      </nav>
       <h1>FEESH-404</h1>
+      {loading && (
+        <div className='loading-cont'>
+          <div className="loader"></div>
+        </div>
+      )}
+      <Notification
+        message={notification.message}
+        show={notification.show}
+        setShow={(show) => setNotification({ ...notification, show })} />
       {!connected && <button className='connect-btn' onClick={connect}>Connect</button>}
       {connected && (
         <>
-          <nav>
-          <div className='logo'>
-          <img className='feesh' src={Feesh} alt='Feesh' />
-          <p className='balance'>{parseFloat(balance)} Feesh</p>
-          </div>
-          <button className='disconnect-btn' onClick={disconnect}>{name}</button>
-          </nav>
           <div className='nft-grid'>
-            {nfts.map((nft, index) => (
-              <div key={index} className='nft-item'>
-                {nft.animation_url ? (
-                  <iframe src={nft.animation_url} title={`Token ID ${nft.token_id}`} frameBorder="0" />
-                ) : (
-                  <p>error loading...</p>
-                )}
+            {nfts.length > 0 ? (
+              nfts.map((nft, index) => (
+                <div key={index} className='nft-item'>
+                  {nft.animation_url ? (
+                    <iframe src={nft.animation_url} title={`Token ID ${nft.token_id}`} frameBorder="0" />
+                  ) : (
+                    <p>error loading...</p>
+                  )}
+                </div>
+              ))
+            ) : (
+              <div className='no-nfts'>
+                <p>No Feesh Owned... <a href='https://app.uniswap.org/explore/tokens/base/0xc5641589a0124586a8dafa3670f7c2a4b8b0cb82' target='_blank' rel="noreferrer">swap for Feesh tokens</a> or <a href='https://opensea.io/collection/feesh404-4' target='_blank' rel="noreferrer">buy a Feesh on Opensea</a></p>
               </div>
-            ))}
+            )}
           </div>
           <a className='swap-btn' href='https://app.uniswap.org/explore/tokens/base/0xc5641589a0124586a8dafa3670f7c2a4b8b0cb82' target='_blank' rel="noreferrer"><button>Swap</button></a>
           <a className='opensea-btn' href='https://opensea.io/collection/feesh404-4' target='_blank' rel="noreferrer"><button>Opensea</button></a>

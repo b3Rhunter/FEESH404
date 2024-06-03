@@ -1,0 +1,26 @@
+.notification-container {
+    position: fixed;
+    top: 125px;
+    right: 40px;
+    background-color: #076ec8;;
+    color: coral;
+    padding: 15px 30px;
+    border-radius: 1em;
+    border: 1px solid coral;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    transform: translateX(100%);
+    opacity: 0;
+    max-width: 300px;
+    word-wrap: break-word;
+    z-index: 9999;
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+  }
+  
+  .notification-container.show {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  

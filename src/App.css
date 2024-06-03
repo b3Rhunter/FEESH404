@@ -1,0 +1,115 @@
+#root {
+  max-width: 1280px;
+  margin: 0;
+  text-align: center;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  z-index: -2;
+}
+
+.background-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  z-index: -1;
+  backdrop-filter: blur(5px);
+}
+
+.background video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  transform: translate(-50%, -50%);
+  background-size: cover;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1em;
+  min-height: 100svh;
+  min-height: 100vh;
+}
+
+.connect-btn {
+  margin-top: 47svh;
+  margin-top: 47vh;
+}
+
+.swap-btn {
+  position: fixed;
+  bottom: 20px;
+  left: 40px;
+}
+
+.opensea-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 40px;
+}
+
+nav {
+  position: fixed;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100vw;
+  height: 100px;
+  padding-inline: 2em;
+  background-color: rgba(241, 236, 236, 0.153);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 10px 0 #00000042;
+  z-index: 9;
+}
+
+nav p {
+  font-size: 2em;
+  font-family: monospace;
+  font-weight: 800;
+  color: #076ec8;
+  text-shadow:
+    1px 1px 0 coral,
+    -1px 1px 0 coral,
+    -1px -1px 0 coral,
+    1px -1px 0 coral;
+}
+
+.nft-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  margin-top: 120px;
+  margin-bottom: 2em;
+  z-index: 1;
+}
+
+.nft-item iframe {
+  width: 350px;
+  height: 350px;
+  border: 1px solid #cccccc29;
+  box-shadow: 0 0 30px 0 #00000069;
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+}

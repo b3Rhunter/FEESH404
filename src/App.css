@@ -198,6 +198,45 @@ nav p {
   color: coral;
 }
 
+.addy-cont {
+  position: fixed;
+  top: 70px;
+  left: 30px;
+  font-weight: 800;
+  z-index: 99999;
+  cursor: def
+}
+
+.text {
+  color: #076ec8;
+  text-shadow:
+  1px 1px 0 coral,
+  -1px 1px 0 coral,
+  -1px -1px 0 coral,
+  1px -1px 0 coral;
+  cursor: default;
+}
+
+.contract-addy {
+  color: coral;
+  text-shadow:
+    1px 1px 0 #076ec8,
+    -1px 1px 0 #076ec8,
+    -1px -1px 0 #076ec8,
+    1px -1px 0 #076ec8;
+}
+
+.contract-addy:hover {
+  color: #076ec8;
+  text-shadow:
+  1px 1px 0 coral,
+  -1px 1px 0 coral,
+  -1px -1px 0 coral,
+  1px -1px 0 coral;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
 @keyframes spin {
   0% {
     transform: rotate(0deg);

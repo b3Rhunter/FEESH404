@@ -122,20 +122,33 @@ function App() {
     setVisibleNfts(visibleNfts + 5);
   }
 
+  const copyContractAddress = () => {
+    navigator.clipboard.writeText(contractAddress);
+    showNotification('Address Copied!');
+  };
+
   return (
     <div className='app'>
       <div className='background'>
         <video src={Water} autoPlay loop muted />
       </div>
       <div className='background-overlay'></div>
-      <nav>
-        <div className='logo'>
-          <img className='feesh' src={Feesh} alt='Feesh' />
-          <p className='balance'>{parseFloat(balance)} Feesh</p>
-        </div>
-        {connected && <button className='disconnect-btn' onClick={disconnect}>{name}</button>}
-      </nav>
-      <h1>FEESH-404</h1>
+      {!loading && (
+        <>
+          <nav>
+            <div className='logo'>
+              <img className='feesh' src={Feesh} alt='Feesh' />
+              <p className='balance'>{parseFloat(balance)} Feesh</p>
+            </div>
+            {connected && <button className='disconnect-btn' onClick={disconnect}>{name}</button>}
+          </nav>
+          <div className='addy-cont'>
+            <p><span className='text'>Contract Address: </span><span className='contract-addy' onClick={copyContractAddress}>{contractAddress.substr(0, 6) + "..."}</span></p>
+          </div>
+          <h1>FEESH-404</h1>
+        </>
+      )}
+
       {loading && (
         <div className='loading-cont'>
           <div className="loader"></div>

@@ -237,6 +237,10 @@ nav p {
   transition: 0.3s;
 }
 
+.show-more-btn {
+  margin-bottom: 20px;
+}
+
 @keyframes spin {
   0% {
     transform: rotate(0deg);

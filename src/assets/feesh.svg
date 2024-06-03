@@ -1,0 +1,17 @@
+<svg width="600" height="600" xmlns="http://www.w3.org/2000/svg">
+ <title>Drawing</title>
+ <g id="Layer_1">
+  <title>Layer 1</title>
+  <g id="svg_11">
+   <path transform="rotate(90 159.984 308.4)" id="svg_10" d="m78.4843,389.39997l81.49999,-162l81.5,162l-162.99999,0z" fill="#01afaf"/>
+   <path transform="rotate(90 316.984 205.4)" id="svg_7" d="m235.4843,286.39997l81.49999,-162l81.5,162l-162.99999,0z" fill="#01afaf"/>
+   <ellipse ry="114" rx="195" id="svg_1" cy="307.39998" cx="326.01596" fill="#09f4f4"/>
+   <path transform="rotate(103.295 359.315 369.4)" stroke="null" id="svg_9" d="m331.81533,396.7316l27.49999,-54.66257l27.5,54.66257l-54.99999,0z" fill="#01afaf"/>
+   <ellipse stroke="#191919" ry="36" rx="36" id="svg_3" cy="247.39999" cx="472.68597" fill="#e5e6ea"/>
+   <ellipse stroke="#191919" ry="43.5" rx="43.5" id="svg_4" cy="263.89999" cx="420.18597" fill="#e5e6ea"/>
+   <ellipse ry="16.5" rx="16.5" id="svg_6" cy="265.89999" cx="431.18597" fill="#191919"/>
+   <ellipse stroke="null" ry="13" rx="13" id="svg_5" cy="251.39998" cx="483.68597" fill="#191919"/>
+   <ellipse ry="13.5" rx="24" id="svg_8" cy="331.89998" cx="481.68597" stroke="null" fill="#01afaf"/>
+  </g>
+ </g>
+</svg>

@@ -83,6 +83,16 @@ nav {
   z-index: 9;
 }
 
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+}
+
+.feesh {
+  width: 70px;
+}
+
 nav p {
   font-size: 2em;
   font-family: monospace;

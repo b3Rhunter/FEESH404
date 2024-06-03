@@ -3,6 +3,7 @@ import { useState } from 'react'
 import DN404ABI from './DN404ABI.json'
 import { ethers } from 'ethers'
 import Water from './water.mp4'
+import Feesh from './assets/feesh.svg'
 
 function App() {
   const [connected, setConnected] = useState(false)
@@ -115,7 +116,11 @@ function App() {
       {connected && (
         <>
           <nav>
+          <div className='logo'>
+          <img className='feesh' src={Feesh} alt='Feesh' />
           <p className='balance'>{parseFloat(balance)} Feesh</p>
+          </div>
+
           <button className='disconnect-btn' onClick={disconnect}>{name}</button>
           </nav>
           <div className='nft-grid'>

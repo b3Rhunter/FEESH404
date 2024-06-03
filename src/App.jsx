@@ -153,7 +153,7 @@ function App() {
               nfts.slice(0, visibleNfts).map((nft, index) => (
                 <div key={index} className='nft-item'>
                   {nft.animation_url ? (
-                    <iframe src={nft.animation_url} title={`Token ID ${nft.token_id}`} frameBorder="0" />
+                    <iframe src={nft.animation_url} title={`Token ID ${nft.token_id}`} frameBorder="0" sandbox="allow-scripts allow-same-origin"></iframe>
                   ) : (
                     <p>error loading...</p>
                   )}

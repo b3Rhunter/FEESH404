@@ -10,7 +10,6 @@ import {LibString} from "./LibString.sol";
 
 
 abstract contract FEESH404 {
-  mapping(uint256 => bytes32) public genes;
   function renderSvg(uint256 tokenId) external virtual view returns (string memory);
   function transferFrom(address from, address to, uint256 id) external virtual;
 }
@@ -102,8 +101,8 @@ contract FEESHTANKTEST is ERC721Enumerable, IERC721Receiver {
 
     for (uint8 i = 0; i < feeshById[_id].length; i++) {
       uint16 blocksTraveled = uint16((block.number-blockAdded[feeshById[_id][i]])%256);
-      int8 speedX = int8(uint8(feesh.genes(feeshById[_id][i])[0]));
-      int8 speedY = int8(uint8(feesh.genes(feeshById[_id][i])[1]));
+      int8 speedX = 5;
+      int8 speedY = 5;
       uint8 newX;
       uint8 newY;
 
